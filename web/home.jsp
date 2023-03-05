@@ -7,24 +7,23 @@
 <html>
 <head>
     <title>Tomcat</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <%@include file="source.jsp"%>
 </head>
 <body>
-
+<%@include file="head.jsp"%>
 <div>
-    <button type = "button" style="padding: 5px; background-color: darkblue;color:white"><a href="/addTask">ADD TASK</a></button>
+    <a href="/addTask" class="btn btn-info btn-sm" style="padding: 5px 20px; background-color: darkblue;color:white; margin: 10px">+ ADD TASK</a>
 </div>
-<div class ="container">
+<div class ="container" >
     <div class="row mt-5">
         <div class="col-sm-12">
             <table class="table">
                 <thead>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Deadline</th>
-                <th>Status</th>
-                <th>Details</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Deadline</th>
+                    <th>Status</th>
+                    <th>Details</th>
                 </thead>
                 <tbody>
                 <%
@@ -37,7 +36,7 @@
                     <td><%=t.getName()%></td>
                     <td><%=t.getDeadlineDate()%></td>
                     <td><%=t.getStatus()%></td>
-                    <td><a href="/detailsTasks?id=<%=t.getId()%>" class="btn btn-info btn-sm" style="background-color: darkblue; color: white">Details</a></td>
+                    <td><a href="/detailsTasks?id=<%=t.getId()%>" class="btn btn-info btn-sm" style="padding: 5px 20px; background-color: darkblue;color:white" >Details</a></td>
                 </tr>
                 <%
                         }

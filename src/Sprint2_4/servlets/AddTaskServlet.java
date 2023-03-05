@@ -20,10 +20,12 @@ public class AddTaskServlet extends HttpServlet {
         String name = request.getParameter("taskname");
         String description = request.getParameter("taskdescription");
         String date = request.getParameter("taskdate");
+        String status = "Not Done";;
         Tasks task = new Tasks();
         task.setName(name);
         task.setDescription(description);
         task.setDeadlineDate(date);
+        task.setStatus(status);
         DBManager.addTask(task);
         response.sendRedirect("/");
     }

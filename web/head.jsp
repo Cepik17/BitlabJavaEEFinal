@@ -1,18 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Serik.Taganbergenov
-  Date: 02.03.2023
-  Time: 21:21
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-    <div>
-      BITLAB
-    </div>
-</body>
-</html>
+<div style="display: flex; background: DarkBlue;padding: 15px; margin: 10px; color:white;">
+    <a class="navbar-brand" href="/home" style="padding-right: 10px;"><b>TASK MANAGER</b></a>
+    <div><a class="nav-link" href="/home">All tasks</a></div>
+</div>
