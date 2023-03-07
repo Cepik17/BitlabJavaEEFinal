@@ -40,6 +40,7 @@
             <input type="hidden" name="iddelete" value="<%=t.getId()%>">
             <button type="submit" style="background-color: red; color: white">Delete</button>
         </form>
+<%--        <a href="/deleteTask?id=<%=t.getId()%>" name="iddelete" class="btn btn-info btn-sm" style="padding: 5px 20px; background-color: darkblue;color:white" >Delete</a>--%>
     </div>
 <%
     }

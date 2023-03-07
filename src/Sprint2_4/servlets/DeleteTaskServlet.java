@@ -10,6 +10,12 @@ import java.io.IOException;
 
 @WebServlet(value = "/deleteTask")
 public class DeleteTaskServlet extends HttpServlet {
+//    @Override
+//    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        String id = request.getParameter("id");
+//           DBManager.deleteTask(Long.parseLong(id));
+//        response.sendRedirect("/");
+//    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
