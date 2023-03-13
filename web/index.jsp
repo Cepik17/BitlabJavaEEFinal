@@ -4,7 +4,8 @@
 <html>
 <head>
     <title>BITLAB Shop</title>
-    <%@include file="source.jsp" %>
+    <%@include file="source.jsp"%>
+    <title>BITLAB Shop</title>
 </head>
 <body>
 <div class="container py-3">
