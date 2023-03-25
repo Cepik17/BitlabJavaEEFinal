@@ -1,11 +1,7 @@
 package Sprint6_4.db;
 
-import Sprint4_2.models.Item;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import Sprint6_4.models.News;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class DButil {
@@ -24,34 +20,36 @@ public class DButil {
         }
     }
 
-    public static ArrayList<Item> getItems() {
-        ArrayList<Item> items = new ArrayList<>();
+    public static ArrayList<News> getNews() {
+        ArrayList<News> news = new ArrayList<>();
         try {
             PreparedStatement statement = connection.prepareStatement("" +
-                    "select * from items i order by i.id desc ");
+                    "select * from news i order by i.post_date desc");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Item item = new Item();
-                item.setId(resultSet.getLong("id"));
-                item.setName(resultSet.getString("name"));
-                item.setPrice(resultSet.getDouble("price"));
-                item.setDescription(resultSet.getString("description"));
-                items.add(item);
+                News novost = new News();
+                novost.setId(resultSet.getLong("id"));
+                novost.setTitle(resultSet.getString("title"));
+                novost.setContent(resultSet.getString("content"));
+                novost.setLanguageId(resultSet.getInt("language_id"));
+                novost.setPostDate(resultSet.getTimestamp("post_date").toLocalDateTime());
+                news.add(novost);
             }
             statement.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return items;
+        return news;
     }
 
-    public static void addItem(Item item) {
+    public static void addNews(News news) {
         try {
             PreparedStatement statement = connection.prepareStatement("" +
-                    "insert into items(name, price, amount) " +
-                    "values (?,?,?)");
-            statement.setString(1, item.getName());
-            statement.setDouble(2, item.getPrice());
+                    "insert into news(title, content, language_id, post_date) " +
+                    "values (?,?,?,NOW())");
+            statement.setString(1, news.getTitle());
+            statement.setString(2, news.getContent());
+            statement.setInt(3,news.getLanguageId());
             statement.executeUpdate();
             statement.close();
         } catch (Exception e) {
@@ -59,34 +57,37 @@ public class DButil {
         }
     }
 
-    public static Item getById(Long id) {
-        Item item = new Item();
+    public static News getNewsById(Long id) {
+        News novost = new News();
         try {
             PreparedStatement statement = connection.prepareStatement("" +
-                    "select * from items i where i.id=?");
+                    "select * from news i where i.id=?");
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                item.setId(resultSet.getLong("id"));
-                item.setName(resultSet.getString("name"));
-                item.setPrice(resultSet.getDouble("price"));
+                novost.setId(resultSet.getLong("id"));
+                novost.setTitle(resultSet.getString("title"));
+                novost.setContent(resultSet.getString("content"));
+                novost.setLanguageId(resultSet.getInt("language_id"));
+                novost.setPostDate(resultSet.getTimestamp("post_date").toLocalDateTime());
             }
             statement.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return item;
+        return novost;
     }
 
-    public static void editItem(Item item) {
+    public static void editNews(News news) {
         try {
             PreparedStatement statement = connection.prepareStatement("" +
-                    "update items " +
-                    "set name=?, price=?, amount=? " +
+                    "update news " +
+                    "set title=?, content=?, language_id=? " +
                     "where id=?");
-            statement.setString(1, item.getName());
-            statement.setDouble(2, item.getPrice());
-            statement.setLong(4, item.getId());
+            statement.setString(1, news.getTitle());
+            statement.setString(2, news.getContent());
+            statement.setInt(3,news.getLanguageId());
+            statement.setLong(4, news.getId());
             statement.executeUpdate();
             statement.close();
         } catch (Exception e) {
@@ -94,51 +95,16 @@ public class DButil {
         }
     }
 
-    public static void deleteById(Long id) {
+    public static void deleteNewsById(Long id) {
         try {
             PreparedStatement statement = connection.prepareStatement("" +
-                    "delete from items i where i.id=?");
+                    "delete from news i where i.id=?");
             statement.setLong(1, id);
             statement.executeUpdate();
             statement.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public static boolean checkUser(String email, String password) {
-        boolean user = false;
-        try {
-            PreparedStatement statement = connection.prepareStatement("" +
-                    "select * from users where email=? and password =?");
-            statement.setString(1, email);
-            statement.setString(2, password);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                user = true;
-            }
-            statement.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return user;
-    }
-
-    public static String getFullName(String email) {
-        String fullName = "";
-        try {
-            PreparedStatement statement = connection.prepareStatement("" +
-                    "select fullname from users where email=?");
-            statement.setString(1, email);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                fullName = resultSet.getString("fullname");
-            }
-            statement.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return fullName;
     }
 
 }

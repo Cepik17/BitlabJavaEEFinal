@@ -1,18 +1,29 @@
 package Sprint6_4.models;
 
+import java.time.LocalDateTime;
+
 public class News {
-    Long id;
-    String title;
-    String content;
+    private Long id;
+    private String title;
+    private String content;
     int languageId; // 1 - English, 2 - Русский
 
-    // Date postDate;
+    LocalDateTime postDate;
 
-    public News(Long id, String title, String content, int languageId) {
-        this.id = id;
+    public LocalDateTime getPostDate() {
+        return postDate;
+    }
+
+    public void setPostDate(LocalDateTime postDate) {
+        this.postDate = postDate;
+    }
+
+    public News(String title, String content, int languageId) {
+
         this.title = title;
         this.content = content;
         this.languageId = languageId;
+      //  this.postDate = postDate;
     }
 
     public News() {
