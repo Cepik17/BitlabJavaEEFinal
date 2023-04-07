@@ -23,7 +23,6 @@ public class SignupServlet extends HttpServlet {
         String fullname=request.getParameter("fullname");
         int roleId= 2;
         String redirect = "/signup?error";
-
         User user = DBM.getUserByEmail(email);
         if (user == null) {
             User newUser = new User();
@@ -35,6 +34,5 @@ public class SignupServlet extends HttpServlet {
             redirect = "/auth?success";
         }
         response.sendRedirect(redirect);
-
     }
 }

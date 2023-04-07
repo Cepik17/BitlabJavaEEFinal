@@ -57,7 +57,6 @@ public class DBM {
             while (resultSet.next()) {
                 News novost = new News();
                 novost.setId(resultSet.getInt("id"));
-                //novost.setCategoryId(resultSet.getInt("category_id"));
                 novost.setPostDate(resultSet.getTimestamp("post_date").toLocalDateTime());
                 NewsContent contents = new NewsContent();
                 contents.setId(resultSet.getInt("content_id"));
@@ -106,17 +105,11 @@ public class DBM {
             while (resultSet.next()) {
                 News novost = new News();
                 novost.setId(resultSet.getInt("id"));
-                //novost.setCategoryId(resultSet.getInt("category_id"));
                 novost.setPostDate(resultSet.getTimestamp("post_date").toLocalDateTime());
-
                 NewsContent contents = new NewsContent();
                 contents.setId(resultSet.getInt("content_id"));
                 contents.setTitle(resultSet.getString("title"));
                 contents.setContent(resultSet.getString("content"));
-//                NewCategories category = new NewCategories();
-//                category.setId(resultSet.getInt("category_id"));
-//
-//                novost.setCategoryId(category);
                 novost.setTitle(contents);
                 novost.setContent(contents);
 
@@ -202,29 +195,23 @@ public class DBM {
                     "inner join news_categories c on c.id = n.category_id " +
                     "where c.id =? and nc.language_id = ?" +
                     "order by n.post_date desc");
-
             statement.setInt(1, id);
             statement.setInt(2, languageId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 News novost = new News();
                 novost.setId(resultSet.getInt("id"));
-                // novost.setCategoryId(resultSet.getInt("category_id"));
                 novost.setPostDate(resultSet.getTimestamp("post_date").toLocalDateTime());
-
                 NewsContent contents = new NewsContent();
                 contents.setId(resultSet.getInt("content_id"));
                 contents.setTitle(resultSet.getString("title"));
                 contents.setContent(resultSet.getString("content"));
                 contents.setLanguageId(resultSet.getInt("language_Id"));
-
                 NewsCategory category = new NewsCategory();
                 category.setId(resultSet.getInt("category_id"));
-
                 novost.setCategoryId(category);
                 novost.setTitle(contents);
                 novost.setContent(contents);
-
                 news.add(novost);
             }
             statement.close();
@@ -233,7 +220,6 @@ public class DBM {
         }
         return news;
     }
-
 
     public static ArrayList<News> getNewsAll(int categoryId) {
         ArrayList<News> news = new ArrayList<>();
@@ -249,20 +235,16 @@ public class DBM {
             while (resultSet.next()) {
                 News novost = new News();
                 novost.setId(resultSet.getInt("id"));
-
                 novost.setPostDate(resultSet.getTimestamp("post_date").toLocalDateTime());
-
                 NewsContent contents = new NewsContent();
                 contents.setId(resultSet.getInt("content_id"));
                 contents.setTitle(resultSet.getString("title"));
                 contents.setContent(resultSet.getString("content"));
-
                 NewsCategory category = new NewsCategory();
                 category.setId(resultSet.getInt("category_id"));
                 novost.setCategoryId(category);
                 novost.setTitle(contents);
                 novost.setContent(contents);
-
                 news.add(novost);
             }
             statement.close();
@@ -285,16 +267,13 @@ public class DBM {
                 novost = new News();
                 novost.setId(resultSet.getInt("id"));
                 novost.setPostDate(resultSet.getTimestamp("post_date").toLocalDateTime());
-
                 NewsContent contents = new NewsContent();
                 contents.setId(resultSet.getInt("content_id"));
                 contents.setTitle(resultSet.getString("title"));
                 contents.setContent(resultSet.getString("content"));
                 contents.setLanguageId(resultSet.getInt("language_id"));
-
                 NewsCategory category = new NewsCategory();
                 category.setId(resultSet.getInt("category_id"));
-
                 novost.setCategoryId(category);
                 novost.setTitle(contents);
                 novost.setContent(contents);
@@ -411,28 +390,14 @@ public class DBM {
         return language;
     }
 
-    public static void editNews(News news) {
-        try {
-            PreparedStatement statement = connection.prepareStatement("" +
-                    "UPDATE news SET category_id = ? where id=?");
-            statement.setInt(1, news.getCategoryId().getId());
-            statement.setInt(2, news.getId());
-            statement.executeUpdate();
-            statement.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
     public static void editNewsContent(NewsContent newsContent) {
         try {
             PreparedStatement statement = connection.prepareStatement("" +
-                    "UPDATE news_contents SET title = ?, content=?, language_id=? where id=? "+
+                    "UPDATE news_contents SET title = ?, content=? where news_id=? "+
                     "");
             statement.setString(1, newsContent.getTitle());
             statement.setString(2, newsContent.getContent());
-            statement.setInt(3, newsContent.getLanguageId());
-            statement.setInt(4, newsContent.getId());
-
+            statement.setInt(3, newsContent.getId());
             statement.executeUpdate();
             statement.close();
         } catch (Exception e) {

@@ -9,20 +9,14 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 @WebServlet(value = "/addcomment")
 public class AddCommentServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //request.getRequestDispatcher("/newsdetails.jsp").forward(request,response);
-    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String newsid = request.getParameter("newsId");
         String comment = request.getParameter("comment");
-
         User currentUser = (User) request.getSession().getAttribute("currentUser");
         if (!comment.isEmpty()) {
             Comment newcomment = new Comment();

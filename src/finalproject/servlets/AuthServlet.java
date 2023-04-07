@@ -13,7 +13,6 @@ import java.io.IOException;
 public class AuthServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         User user = (User) request.getSession().getAttribute("currentUser");
         if (user == null) {
             request.getRequestDispatcher("/auth.jsp").forward(request, response);
@@ -25,7 +24,6 @@ public class AuthServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         User user = DBM.getUserByEmail(email);
-
         String redirect = "/auth?wrongEmailOrPassword";
         if (user != null) {
             if (user.getPassword().equals(password)) {

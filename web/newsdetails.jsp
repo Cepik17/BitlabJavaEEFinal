@@ -68,18 +68,10 @@
         </form>
     </div>
 <%
-
     if (currentUser.getRoleID() == 1) {
 %>
-<%--    <form action ="/editnews" method="post">--%>
-        <div class="container">
-<%--            <input type="hidden" name ="newsId" value ="<%=novost.getId()%>">--%>
-<%--            <button class="btn btn-success">Edit News</button>--%>
-            <a href="/editnews?newsId=<%=novost.getId()%>" class="btn btn-success">Edit News</a>
-        </div>
-<%--    </form>--%>
-    <div class="container mt-3">
-        <a href="/addnewsto" class="btn btn-success">Add News</a>
+    <div class="container">
+            <a href="/editnews?id=<%=novost.getId()%>" class="btn btn-success">Edit News</a>
     </div>
     <form action ="/deletenews" method="post">
         <div class="container mt-3">
